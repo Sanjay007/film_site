@@ -30,7 +30,7 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "startDev": "export PORT=3006 && react-scripts start",
+    "startDev": "react-scripts start",
     "start": "node server/server.js",
     "heroku-postbuild": "npm run build",
     "build": "react-scripts build",
