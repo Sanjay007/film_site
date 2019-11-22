@@ -5,10 +5,10 @@ services:
         restart: always
         ports:
             - "3000:3000"
-        working_dir: /client/src/app
+        working_dir: /client/src
         volumes:
-            - ./client:/client/src/app
-        entrypoint: ["npm", "start"]
+            - ./client:/client/src
+        entrypoint: ["npm", "startDev"]
         links:
             - api
         networks:
@@ -19,8 +19,8 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - ./api:/api
-            - /api/node_modules
+            - ./server:/server
+            - /server/node_modules
         depends_on:
             - mongodb
         networks:
