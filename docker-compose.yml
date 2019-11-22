@@ -4,7 +4,7 @@ services:
         image: mhart/alpine-node:6.8.0
         restart: always
         ports:
-            - "3000:3000"
+            - "3000:3006"
         working_dir: /client/src
         volumes:
             - ./client:/client/src
@@ -17,7 +17,7 @@ services:
         image: webapp-api
         restart: always
         ports:
-            - "9000:9000"
+            - "9000:8080"
         volumes:
             - ./server:/server
             - /server/node_modules
