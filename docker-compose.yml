@@ -3,7 +3,7 @@ services:
     client:
         build:
             context: ./client/
-            dockerfile: ./client/Dockerfile
+            dockerfile: Dockerfile
         image: client
         restart: always
         ports:
