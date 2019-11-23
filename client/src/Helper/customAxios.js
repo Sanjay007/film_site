@@ -3,9 +3,7 @@ import axios from 'axios';
 
 export const API_ROOT = '';
 
-const axiosInst = axios.create({
-  baseURL: API_ROOT,
-});
+const axiosInst = axios;
 
 // axiosInst.interceptors.response.use((response) => {
 //   let res = response;
