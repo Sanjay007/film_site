@@ -17,6 +17,9 @@ services:
         networks:
             - webappnetwork
     api:
+        build:
+          context: ./server/
+          dockerfile: Dockerfile
         image: webapp-api
         restart: always
         ports:
@@ -36,7 +39,6 @@ services:
             - ./data-node:/data/db
         ports:
             - 27017:27017
-        command: mongod --noauth --smallfiles
         networks:
             - webappnetwork
 networks:
