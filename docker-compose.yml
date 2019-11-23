@@ -7,7 +7,7 @@ services:
         image: client
         restart: always
         ports:
-            - "3000:3006"
+            - "3000:3000"
         working_dir: /client/src
         volumes:
             - ./client:/client/src
