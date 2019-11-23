@@ -1,7 +1,10 @@
 version: "2"
 services:
     client:
-        image: mhart/alpine-node:6.8.0
+        build:
+            context: ./client/
+            dockerfile: ./client/Dockerfile
+        image: client
         restart: always
         ports:
             - "3000:3006"
