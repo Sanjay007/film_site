@@ -11,7 +11,7 @@ services:
         working_dir: /client/src
         volumes:
             - ./client:/client/src
-        entrypoint: ["npm", "startDev"]
+        entrypoint: ["npm", "run","startDev"]
         links:
             - api
         networks:
