@@ -50,64 +50,64 @@ class Signin extends Component {
     }
 let objreq={'userEmail':email,'userPassword':password};
 
-    // customAxios.post('/signIn',objreq).then(res => {
-    //   console.log(res);
+    customAxios.post('/signIn',objreq).then(res => {
+      console.log(res);
            
-    //   success("Login Successfully");
-    //         componentThis.props.history.push("/");
-    // }).catch(function (err) {
+      success("Login Successfully");
+            componentThis.props.history.push("/");
+    }).catch(function (err) {
     
-    //   errorMessage(err.response.data.response.message);
-    //         componentThis.stateLoading(false);
-    //         enableButton("signinBtn");
-    //     console.log('UUUUUUUUU***',err.response.data.response.message);
-    // });
+      errorMessage(err.response.data.response.message);
+            componentThis.stateLoading(false);
+            enableButton("signinBtn");
+        console.log('UUUUUUUUU***',err.response.data.response.message);
+    });
 
-    database
-      .ref("users")
-      .once("value")
-      .then(snapshot => {
-        snapshot.forEach(childSnapshot => {
-          var user = childSnapshot.val();
-          users.push(user);
-        });
+    // database
+    //   .ref("users")
+    //   .once("value")
+    //   .then(snapshot => {
+    //     snapshot.forEach(childSnapshot => {
+    //       var user = childSnapshot.val();
+    //       users.push(user);
+    //     });
 
-        users.forEach(user => {
-          if (
-            user.email === email &&
-            bcrypt.compareSync(password, user.password)
-          ) {
-            found = true;
-            if (user.allowed) {
-              allowed = true;
-              userFound = user;
-            }
-          }
-          return;
-        });
-        if (found && allowed) {
-          componentThis.props.setAuth(userFound);
-          if (this.state.checked) {
-            localStorage.setItem("userObjLogin", JSON.stringify(userFound));
-          }
-          found = false;
-          allowed = false;
-          success("Login Successfully");
-          componentThis.props.history.push("/");
-        } else if (found && !allowed) {
-          errorMessage("Account Is Pending");
-          componentThis.stateLoading(false);
-          enableButton("signinBtn");
-        } else {
-          errorMessage("Sorry Incorrect Data");
-          componentThis.stateLoading(false);
-          enableButton("signinBtn");
-        }
-      })
-      .catch(err => {
-        errorMessage(err.message);
-        console.log(err);
-      });
+    //     users.forEach(user => {
+    //       if (
+    //         user.email === email &&
+    //         bcrypt.compareSync(password, user.password)
+    //       ) {
+    //         found = true;
+    //         if (user.allowed) {
+    //           allowed = true;
+    //           userFound = user;
+    //         }
+    //       }
+    //       return;
+    //     });
+    //     if (found && allowed) {
+    //       componentThis.props.setAuth(userFound);
+    //       if (this.state.checked) {
+    //         localStorage.setItem("userObjLogin", JSON.stringify(userFound));
+    //       }
+    //       found = false;
+    //       allowed = false;
+    //       success("Login Successfully");
+    //       componentThis.props.history.push("/");
+    //     } else if (found && !allowed) {
+    //       errorMessage("Account Is Pending");
+    //       componentThis.stateLoading(false);
+    //       enableButton("signinBtn");
+    //     } else {
+    //       errorMessage("Sorry Incorrect Data");
+    //       componentThis.stateLoading(false);
+    //       enableButton("signinBtn");
+    //     }
+    //   })
+    //   .catch(err => {
+    //     errorMessage(err.message);
+    //     console.log(err);
+    //   });
   };
   changeAdmin = () => {
     this.setState(prevState => {

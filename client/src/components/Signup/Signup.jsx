@@ -59,55 +59,20 @@ class Signup extends Component {
 
     let objReq={'name':name,'email':email,'password':password,'userDescription':userDescription,'userTitle':userTitle,'userId':userId};
 
-    // customAxios.post(`/signup`, objReq)
-    // .then(res => {
-    //   console.log(res);
-    //        success("Request Is Pending From Admin To Approve");
-    //     componentThis.stateLoading(false);
-    //     this.props.history.push("/");
-    // }).catch(function (err) {
-    //    componentThis.stateLoading(false);
-    //       enableButton("signupBtn");
-    //      errorMessage(err.message);
-    //     console.log(err.message);
-    // });
-
-    //disableButton("signupBtn");
-    let dublicat = _.find(this.state.users, userEmail => {
-      return userEmail === email;
-    });
-    if (dublicat) {
-      componentThis.stateLoading(false);
-      return errorMessage("Email Already Exixts");
-    }
-    database
-      .ref("users/" + userId)
-      .set({
-        name,
-        email,
-        password,
-        userId,
-        allowed,
-        userTitle,
-        lock,
-        notifications,
-        newNotification,
-        followers,
-        messages,
-        newMessage,
-        userDescription
-      })
-      .then(() => {
-        success("Request Is Pending From Admin To Approve");
+    customAxios.post(`/signup`, objReq)
+    .then(res => {
+      console.log(res);
+           success("Request Is Pending From Admin To Approve");
         componentThis.stateLoading(false);
         this.props.history.push("/");
-      })
-      .catch(err => {
-        componentThis.stateLoading(false);
-        enableButton("signupBtn");
-        errorMessage(err.message);
+    }).catch(function (err) {
+       componentThis.stateLoading(false);
+          enableButton("signupBtn");
+         errorMessage(err.message);
         console.log(err.message);
-      });
+    });
+
+    
   };
   render() {
     return (
@@ -219,7 +184,7 @@ class Signup extends Component {
                   type="password"
                   name=""
                   id="userPassword"
-                  placeholder="Choose you title"
+                  placeholder="Enter Password"
                 />
               </label>
 
