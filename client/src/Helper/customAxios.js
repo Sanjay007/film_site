@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-export const API_ROOT = 'http://api:9000';
+export const API_ROOT = '';
 
 const axiosInst = axios.create({
   baseURL: API_ROOT,
