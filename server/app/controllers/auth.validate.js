@@ -50,27 +50,3 @@ exports.signUp = [
     validationResult(req, res, next)
   }
 ]
-
-
-/**
- * Validates login request
- */
-exports.userSignIn = [
-  check('userEmail')
-  .exists()
-  .withMessage('Email Required')
-  .not()
-  .isEmpty()
-  .withMessage('Email cannot be blank')
-  .isEmail()
-  .withMessage('EMAIL_IS_NOT_VALID'),
-  check('userPassword')
-  .exists()
-  .withMessage('Password required')
-  .not()
-  .isEmpty()
-  .withMessage('Password cannot be blank'),
-  (req, res, next) => {
-    validationResult(req, res, next)
-  }
-]

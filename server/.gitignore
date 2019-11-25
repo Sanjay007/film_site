@@ -67,4 +67,4 @@ typings/
 
 # ignore production configuration
 #.env.production
-public/*
+public/uploads/images/*

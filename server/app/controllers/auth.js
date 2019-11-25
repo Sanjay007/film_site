@@ -54,6 +54,7 @@ const setUserInfo = req => {
 
   return user
 }
+
 /**
  * Saves a new user access and then returns token
  * @param {Object} req - request object
@@ -63,10 +64,12 @@ const saveUserAccessAndReturnToken = async (req, user) => {
   return new Promise((resolve, reject) => {
     const userAccess = new UserAccess({
       email: user.email,
-      ip: utils.getIP(req),
-      browser: utils.getBrowserInfo(req),
-      country: utils.getCountry(req)
+      ip: "10.2.30.0"
+      // browser: utils.getBrowserInfo(req),
+      //country: utils.getCountry(req)
     })
+
+    console.log(userAccess)
     userAccess.save(err => {
       if (err) {
         reject(utils.buildErrObject(422, err.message))
@@ -92,7 +95,7 @@ const findUser = async email => {
     User.findOne({
         email
       },
-      'name email allowed role lock password',
+      'name email role image_url social_id',
       (err, item) => {
         // utils.itemNotFound(err, item, reject, 'USER_DOES_NOT_EXIST')
         resolve(item)
@@ -336,65 +339,4 @@ exports.signUp = async (req, res) => {
   } catch (error) {
     utils.handleError(res, error)
   }
-}
-
-
-/**
- * Login function called by route
- * @param {Object} req - request object
- * @param {Object} res - response object
- */
-exports.userSignin = async (req, res) => {
-  try {
-    const data = matchedData(req)
-    const user = await findUser(data.userEmail)
-
-    await userIsAllowed(user)
-    // await checkLoginAttemptsAndBlockExpires(user)
-    const isPasswordMatch = await auth.checkPassword(data.userPassword, user)
-    if (!isPasswordMatch) {
-      utils.handleError(res, "Invalid Credentials, Please try again")
-    } else {
-      await saveLoginAttemptsToDB(user)
-      const loginRes = await saveUserAccessAndReturnToken(req, user);
-      utils.handleSuccess(res, loginRes, "Sign-in Successfully");
-    }
-  } catch (error) {
-    utils.handleError(res, error)
-  }
-}
-
-
-/**
- * Checks against user if has quested role
- * @param {Object} data - data object
- * @param {*} next - next callback
- */
-const userIsAllowed = async (data, next) => {
-  return new Promise((resolve, reject) => {
-    User.findById(data.id, (err, result) => {
-      utils.itemNotFound(err, result, reject, 'NOT_FOUND')
-      if (!data.allowed) {
-        reject(utils.buildErrObject(422, "Account Is Pending"))
-      }
-      resolve(true)
-
-    })
-  })
-}
-/**
- * Saves login attempts to dabatabse
- * @param {Object} user - user object
- */
-const saveLoginAttemptsToDB = async user => {
-  return new Promise((resolve, reject) => {
-    user.save((err, result) => {
-      if (err) {
-        reject(utils.buildErrObject(422, err.message))
-      }
-      if (result) {
-        resolve(true)
-      }
-    })
-  })
 }

@@ -4,7 +4,7 @@ const { matchedData } = require('express-validator')
 const utils = require('../middleware/utils')
 const db = require('../middleware/db')
 const emailer = require('../middleware/emailer')
-const video = require('../models/video')
+
 /*********************
  * Private functions *
  *********************/
@@ -132,57 +132,4 @@ exports.deleteItem = async (req, res) => {
   } catch (error) {
     utils.handleError(res, error)
   }
-}
-
-// // Landing page API
-
-/**
- * Get profile function called by route
- * @param {Object} req - request object
- * @param {Object} res - response object
- */
-exports.getOnlandingPage = async (req, res) => {
-  try {
-
-    const id = await utils.isIDGood(req.user._id)
-    var videoList = await getLandingPageVideos(id)
-    var result = videoList.map(function (el) {
-      var o = Object.assign({}, el.toObject());
-      o.videoUrl = process.env.BASE_URL + '/uploads/videos/' + el.video;
-      o.posterUrl = process.env.BASE_URL + '/uploads/poster/' + el.poster;
-      o.playCount = 100;
-      return o;
-    })
-
-    // result.forEach(v => {
-    //   v.isActive = true;
-    // });   
-
-    const dataset = {
-      featured: result,
-      recommended: result //  will modify later
-    }
-    utils.handleSuccess(res, dataset, "fetched successfully")
-  } catch (error) {
-    utils.handleError(res, error)
-  }
-}
-
-
-/**
- * Gets profile from database by id
- * @param {string} id - user id
- */
-const getLandingPageVideos = async id => {
-  return new Promise((resolve, reject) => {
-    video.find({
-      // "userId": id,
-      "allowed": true,
-      "disabled": false,
-      "hide": false
-    }, (err, VideoList) => {
-      utils.itemNotFound(err, VideoList, reject, 'No data found !')
-      resolve(VideoList)
-    })
-  })
 }

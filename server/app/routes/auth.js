@@ -12,7 +12,7 @@ const trimRequest = require('trim-request')
 /**
 * @swagger
 {
-	"/signIn": {
+	"/api/user/login": {
 		"post": {
 			"tags": ["User"],
 			"name": "User Login",
@@ -23,16 +23,16 @@ const trimRequest = require('trim-request')
 			"parameters": [
 				{
 					"in": "body",
-					"name": "body",
+					"name": "body,",
 					"schema": {
 						"$ref": "#/",
 						"type": "object",
 						"properties": {
-							"userEmail": {
-								"value": "akp@dummy.com",
+							"email": {
+								"value": "subhajit601@gmail.com",
 								"type": "string"
 							},
-							"userPassword": {
+							"password": {
 								"type": "string",
 								"format": "password",
 								"value": 123456
@@ -40,8 +40,8 @@ const trimRequest = require('trim-request')
 						}
 					},
 					"required": [
-						"userEmail",
-						"userPassword"
+						"email",
+						"password"
 					]
 				}
 			],
@@ -61,77 +61,8 @@ const trimRequest = require('trim-request')
 }
 */
 
-/**
-* @swagger
-{
-	"/signUp": {
-		"post": {
-			"tags": ["User"],
-			"name": "User Login",
-			"summary": "User Login",
-			"consumes": [
-				"application/json"
-			],
-			"parameters": [
-				{
-					"in": "body",
-					"name": "body",
-					"schema": {
-						"$ref": "#/",
-						"type": "object",
-						"properties": {
-							"name": {
-								"value": "User name",
-								"type": "string"
-							},
-							"email": {
-								"value": "akp@dummy.com",
-								"type": "string"
-							},
-							"password": {
-								"type": "string",
-								"format": "password",
-								"value": 123456
-							},
-							"userDescription": {
-								"value": "Description",
-								"type": "string"
-							},
-							"userTitle": {
-								"value": "Title",
-								"type": "string"
-							},							
-							"userId": {
-								"value": "user id",
-								"type": "string"
-							},
-						}
-					},
-					"required": [
-						"name",
-						"email",
-						"password",
-						"userDescription",
-						"userTitle",
-						"userId"
-					]
-				}
-			],
-			"responses": {
-				"200": {
-					"description": "Sign up successfully."
-				},
-				"400": {
-					"description": "Invalid Parameters"
-				},
-				"401": {
-					"description": "Unauthorize user, Wrong token, token mismatch."
-				}
-			}
-		}
-	}
-}
-*/
+
+
 
 /*
  * Register route
@@ -143,10 +74,6 @@ router.post(
   controller.signUp
 )
 
-/*
- * Login route
- */
-router.post('/signIn', trimRequest.all, validate.userSignIn, controller.userSignin)
 /*
  * Get new refresh token
  */

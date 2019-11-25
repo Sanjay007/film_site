@@ -12,5 +12,3 @@ const trimRequest = require('trim-request')
 
 
 module.exports = router
-
-router.get('/userLandingPage',requireAuth, controller.getOnlandingPage)

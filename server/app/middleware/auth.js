@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const algorithm = 'aes-256-ecb'
 const secret = process.env.JWT_SECRET
-const utils = require('../middleware/utils')
+
 module.exports = {
   /**
    * Checks is password matches
@@ -11,11 +11,9 @@ module.exports = {
    */
   async checkPassword(password, user) {
     return new Promise((resolve, reject) => {
-
       user.comparePassword(password, (err, isMatch) => {
         if (err) {
-          reject(utils.buildErrObject(422, err))
-          // reject(utils.handleError(res, [], "User with this email is already exist !"))
+          reject(this.buildErrObject(422, err.message))
         }
         if (!isMatch) {
           resolve(false)

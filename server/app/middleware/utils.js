@@ -131,7 +131,7 @@ exports.handleError = (res, err) => {
     response: {
       dataset: [],
       status: 0,
-      message: err.message ? err.message : err
+      message: err.message
     }
   })
 }
