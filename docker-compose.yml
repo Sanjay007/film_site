@@ -23,7 +23,7 @@ services:
         image: webapp-api
         restart: always
         ports:
-            - "9000:8080"
+            - "8080:8080"
         volumes:
             - ./server:/server
             - /server/node_modules
